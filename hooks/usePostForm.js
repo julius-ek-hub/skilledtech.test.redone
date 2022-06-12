@@ -22,7 +22,7 @@ function usePostForm() {
 
 	const suggestErrorSolution = () =>
 		!navigator.onLine
-			? " Please check your internet connection and refresh the page"
+			? " Please check your internet connection and try again."
 			: "";
 
 	const doSetInitialValues = async () => {
