@@ -76,13 +76,17 @@ function usePost() {
 	};
 
 	const deletePost = async (postId) => {
-		setDeleting([...deleting, postId]);
-		await services.deletePost(postId);
-		setPosts(posts.filter(({ id }) => id !== postId));
-		setDeleting(deleting.filter((id) => id !== postId));
-		setDeleting(filter(deleting, postId));
-		setCommentsLoading(filter(commentsLoading, postId));
-		setCommentsOpen(filter(commentsOpen, postId));
+		try {
+			setDeleting([...deleting, postId]);
+			await services.deletePost(postId);
+			setPosts(posts.filter(({ id }) => id !== postId));
+			setCommentsLoading(filter(commentsLoading, postId));
+			setCommentsOpen(filter(commentsOpen, postId));
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setDeleting(filter(deleting, postId));
+		}
 	};
 
 	useEffect(() => {
