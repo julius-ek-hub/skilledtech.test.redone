@@ -9,7 +9,7 @@ const _initialValues = {
 	body: "",
 };
 
-function userPostForm() {
+function usePostForm() {
 	const [initialValues, setInitialValues] = useState(_initialValues);
 	const [loading, setLoading] = useState(true);
 	const [saving, setSaving] = useState(false);
@@ -21,8 +21,9 @@ function userPostForm() {
 	const isNewPost = Object.values(initialValues).every((value) => !value);
 
 	const suggestErrorSolution = () =>
-		!navigator.onLine &&
-		" Please check your internet connection and refresh the page";
+		!navigator.onLine
+			? " Please check your internet connection and refresh the page"
+			: "";
 
 	const doSetInitialValues = async () => {
 		if (id === undefined) return;
@@ -52,6 +53,7 @@ function userPostForm() {
 			else await services.updatePost(id, values);
 			router.push("/posts");
 		} catch (error) {
+			console.log(error);
 			setError("Failed to save post." + suggestErrorSolution());
 		} finally {
 			setSaving(false);
@@ -68,4 +70,4 @@ function userPostForm() {
 	};
 }
 
-export default userPostForm;
+export default usePostForm;

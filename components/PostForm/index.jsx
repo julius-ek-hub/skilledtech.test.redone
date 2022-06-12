@@ -8,7 +8,7 @@ import TitleField from './TitleField';
 import BodyField from './BodyFiled';
 import SubmitButton from './SubmitButton';
 
-import userPostForm from '../../hooks/userPostForm';
+import usePostForm from '../../hooks/usePostForm';
 
 const LoadingIndicator = () => (
     <Box display="flex">
@@ -19,7 +19,7 @@ const LoadingIndicator = () => (
 
 function UsersForm() {
 
-    const form = userPostForm();
+    const form = usePostForm();
 
     const ViewNavBar = (
         <Typography

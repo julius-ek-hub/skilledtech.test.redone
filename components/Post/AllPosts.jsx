@@ -20,7 +20,9 @@ function AllPosts() {
     const loading = postsHook.loadingPosts
 
     return (
-        <View NavBarComponent={<PostsNavBar />}>
+        <View
+            NavBarComponent={<PostsNavBar />}
+            onScrolledToBottom={postsHook.fetch10Posts}>
             <List>
                 {posts.map((postDetails, key) => (
                     <PostContext.Provider

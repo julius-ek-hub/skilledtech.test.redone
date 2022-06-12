@@ -23,7 +23,7 @@ const Sticky = styled(Box)(({ theme }) => ({
 }));
 
 
-function View({ children, NavBarComponent }) {
+function View({ children, NavBarComponent, onScrolledToBottom }) {
 
     const { smallScreen, maxSafeHeight } = useDimension();
 
@@ -35,8 +35,13 @@ function View({ children, NavBarComponent }) {
                     <div style={{
                         height: maxSafeHeight || 'calc(100vh - 60px)',
                         overflow: 'auto',
-                        padding: 16
-                    }}>
+                        padding: 16,
+                    }}
+                        onScroll={({ target }) => {
+                            if ((target.scrollHeight === target.scrollTop + target.clientHeight) && onScrolledToBottom)
+                                onScrolledToBottom()
+                        }}
+                    >
                         {children}
                     </div>
                 </Container>

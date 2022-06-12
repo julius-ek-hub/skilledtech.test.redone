@@ -9,7 +9,7 @@ export const deletePost = (id) => crud.delete(POSTS_BASE_URL + id);
 
 export const updatePost = (id, body) => crud.put(POSTS_BASE_URL + id, body);
 
-export const createPost = (body) => crud.post(POSTS_BASE_URL + id, body);
+export const createPost = (body) => crud.post(POSTS_BASE_URL, body);
 
 export const getPosts = async (startFrom = 0) => {
 	const posts = await crud.get(

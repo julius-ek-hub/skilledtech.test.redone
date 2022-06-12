@@ -4,17 +4,18 @@ import * as services from "../api/services";
 
 function usePost() {
 	const [posts, setPosts] = useState([]);
-	const [loadingPosts, setLoadingPosts] = useState(true);
+	const [loadingPosts, setLoadingPosts] = useState(false);
 	const [deleting, setDeleting] = useState([]);
 	const [commentsOpen, setCommentsOpen] = useState([]);
 	const [commentsLoading, setCommentsLoading] = useState([]);
 	const [postFetchError, setPostFetchError] = useState(null);
 
 	const fetch10Posts = async () => {
+		if (loadingPosts) return;
 		try {
 			setPostFetchError(null);
 			setLoadingPosts(true);
-			const newPosts = await services.getPosts(posts.length);
+			const newPosts = await services.getPosts(posts[posts.length - 1]?.id);
 			const jointPosts = [...posts, ...newPosts];
 			setPosts(jointPosts);
 		} catch (e) {
@@ -25,8 +26,9 @@ function usePost() {
 	};
 
 	const suggestErrorSolution = () =>
-		!navigator.onLine &&
-		" Please check your internet connection and refresh the page";
+		!navigator.onLine
+			? " Please check your internet connection and refresh the page"
+			: "";
 
 	const availablePostComments = (postId) =>
 		posts.find(({ id }) => id === postId)?.comments || [];
